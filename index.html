@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class=""> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,12 +50,15 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)); /* Gradient overlay */
+            /* Slightly darker overlay for better contrast in both modes */
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)); 
             z-index: -50;
         }
         /* Added style for checkout form inputs */
         .checkout-input {
-             @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition duration-300;
+             /* Added dark mode styles */
+             @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition duration-300 
+                    dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-green-600 dark:focus:border-transparent;
         }
          /* Keyframe Animations */
          @keyframes fadeInDown {
@@ -77,33 +80,48 @@
         .animate-bounce-slow { animation: bounceSlow 2s infinite ease-in-out 1s; } /* Added delay */
 
     </style>
+     <script>
+        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark')
+        } else {
+          document.documentElement.classList.remove('dark')
+        }
+      </script>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-300 transition-colors duration-300">
 
-    <header class="bg-white shadow-md sticky top-0 z-50">
+    <header class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50 transition-colors duration-300 dark:border-b dark:border-gray-700">
         <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="#" id="logo-link" class="text-2xl font-bold text-green-700">Eco-Dhara</a>
+            <a href="#" id="logo-link" class="text-2xl font-bold text-green-700 dark:text-green-500">Eco-Dhara</a>
             <div class="hidden md:flex space-x-6 items-center">
-                <a href="#home" class="nav-link text-gray-600 hover:text-green-600 transition duration-300">Home</a>
-                <a href="#about" class="nav-link text-gray-600 hover:text-green-600 transition duration-300">About Us</a>
-                <a href="#how-it-works" class="nav-link text-gray-600 hover:text-green-600 transition duration-300">How It Works</a>
-                <a href="#impact" class="nav-link text-gray-600 hover:text-green-600 transition duration-300">Our Impact</a>
-                <a href="#contact" class="nav-link text-gray-600 hover:text-green-600 transition duration-300">Contact</a>
-                <a href="#plant" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition duration-300">Plant a Tree</a>
+                 <a href="#home" class="nav-link text-gray-600 hover:text-green-600 dark:text-gray-400 dark:hover:text-green-400 transition duration-300">Home</a>
+                <a href="#about" class="nav-link text-gray-600 hover:text-green-600 dark:text-gray-400 dark:hover:text-green-400 transition duration-300">About Us</a>
+                <a href="#how-it-works" class="nav-link text-gray-600 hover:text-green-600 dark:text-gray-400 dark:hover:text-green-400 transition duration-300">How It Works</a>
+                <a href="#impact" class="nav-link text-gray-600 hover:text-green-600 dark:text-gray-400 dark:hover:text-green-400 transition duration-300">Our Impact</a>
+                <a href="#contact" class="nav-link text-gray-600 hover:text-green-600 dark:text-gray-400 dark:hover:text-green-400 transition duration-300">Contact</a>
+                <a href="#plant" class="bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 text-white font-semibold py-2 px-4 rounded-lg shadow transition duration-300">Plant a Tree</a>
+                <button id="theme-toggle" type="button" class="ml-4 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.121-3.536a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM10 18a1 1 0 011-1v-1a1 1 0 11-2 0v1a1 1 0 011 1zM5.05 14.464l.707-.707a1 1 0 10-1.414-1.414l-.707.707a1 1 0 001.414 1.414zM14.95 5.536a1 1 0 010-1.414l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0zM4.464 5.05l-.707.707a1 1 0 001.414 1.414l.707-.707a1 1 0 10-1.414-1.414z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
             </div>
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-gray-600 focus:outline-none">
+            <div class="md:hidden flex items-center"> <button id="theme-toggle-mobile" type="button" class="mr-3 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+                    <svg id="theme-toggle-dark-icon-mobile" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon-mobile" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.121-3.536a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM10 18a1 1 0 011-1v-1a1 1 0 11-2 0v1a1 1 0 011 1zM5.05 14.464l.707-.707a1 1 0 10-1.414-1.414l-.707.707a1 1 0 001.414 1.414zM14.95 5.536a1 1 0 010-1.414l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0zM4.464 5.05l-.707.707a1 1 0 001.414 1.414l.707-.707a1 1 0 10-1.414-1.414z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+                 <button id="mobile-menu-button" class="text-gray-600 dark:text-gray-400 focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
             </div>
         </nav>
-        <div id="mobile-menu" class="md:hidden hidden bg-white py-2">
-            <a href="#home" class="mobile-nav-link block px-6 py-2 text-gray-600 hover:bg-green-50">Home</a>
-            <a href="#about" class="mobile-nav-link block px-6 py-2 text-gray-600 hover:bg-green-50">About Us</a>
-            <a href="#how-it-works" class="mobile-nav-link block px-6 py-2 text-gray-600 hover:bg-green-50">How It Works</a>
-            <a href="#impact" class="mobile-nav-link block px-6 py-2 text-gray-600 hover:bg-green-50">Our Impact</a>
-            <a href="#contact" class="mobile-nav-link block px-6 py-2 text-gray-600 hover:bg-green-50">Contact</a>
-            <a href="#plant" class="mobile-nav-link block px-6 py-2 bg-green-600 text-white text-center mx-4 my-2 rounded-lg shadow hover:bg-green-700">Plant a Tree</a>
+         <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-gray-800 py-2">
+             <a href="#home" class="mobile-nav-link block px-6 py-2 text-gray-600 hover:bg-green-50 dark:text-gray-400 dark:hover:bg-gray-700">Home</a>
+            <a href="#about" class="mobile-nav-link block px-6 py-2 text-gray-600 hover:bg-green-50 dark:text-gray-400 dark:hover:bg-gray-700">About Us</a>
+            <a href="#how-it-works" class="mobile-nav-link block px-6 py-2 text-gray-600 hover:bg-green-50 dark:text-gray-400 dark:hover:bg-gray-700">How It Works</a>
+            <a href="#impact" class="mobile-nav-link block px-6 py-2 text-gray-600 hover:bg-green-50 dark:text-gray-400 dark:hover:bg-gray-700">Our Impact</a>
+            <a href="#contact" class="mobile-nav-link block px-6 py-2 text-gray-600 hover:bg-green-50 dark:text-gray-400 dark:hover:bg-gray-700">Contact</a>
+            <a href="#plant" class="mobile-nav-link block px-6 py-2 bg-green-600 text-white text-center mx-4 my-2 rounded-lg shadow hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800">Plant a Tree</a>
         </div>
     </header>
 
@@ -115,164 +133,166 @@
             </video>
             <div class="hero-overlay"></div>
             <div class="relative z-10 p-6">
-                <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 leading-tight animate-fade-in-down">Plant a Tree, Grow a Legacy</h1>
+                 <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 leading-tight animate-fade-in-down">Plant a Tree, Grow a Legacy</h1>
                 <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto animate-fade-in-up">Too busy to plant trees yourself? Let us do it for you. We plant native trees, care for them, and send you monthly photo updates.</p>
-                <a href="#plant" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg text-lg transition duration-300 transform hover:scale-105 animate-bounce-slow">Start Planting Today</a>
+                 <a href="#plant" class="bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 text-white font-bold py-3 px-8 rounded-lg shadow-lg text-lg transition duration-300 transform hover:scale-105 animate-bounce-slow">Start Planting Today</a>
             </div>
         </section>
 
-        <section id="about" class="py-16 md:py-24 bg-white fade-in-section">
+         <section id="about" class="py-16 md:py-24 bg-white dark:bg-gray-900 fade-in-section transition-colors duration-300">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Our Mission</h2>
-                <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-12">We believe everyone deserves the chance to contribute to a greener planet. PlantHope bridges the gap for busy individuals and environmentally conscious companies, making tree planting accessible, transparent, and impactful. We partner with local communities and NGOs to restore ecosystems, one tree at a time.</p>
+                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-6">Our Mission</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-12">We believe everyone deserves the chance to contribute to a greener planet. Eco-Dhara bridges the gap for busy individuals and environmentally conscious companies, making tree planting accessible, transparent, and impactful. We partner with local communities and NGOs to restore ecosystems, one tree at a time.</p>
                 <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <img src="https://treenm.org/wp-content/uploads/2020/10/TreeNM-October-events-image002-1024x731.jpg" alt="Team planting trees" class="rounded-lg shadow-lg w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <img src="https://treenm.org/wp-content/uploads/2020/10/TreeNM-October-events-image002-1024x731.jpg" alt="Team planting trees" class="rounded-lg shadow-lg dark:shadow-none w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
                     <div>
-                        <h3 class="text-2xl font-semibold text-gray-700 mb-4">Why Choose PlantHope?</h3>
-                        <ul class="text-left space-y-3 text-gray-600">
-                            <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i><span>Convenience: We handle everything from planting to care.</span></li>
-                            <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i><span>Transparency: Receive monthly photo updates of YOUR tree.</span></li>
-                            <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i><span>Impact: We plant native species suitable for the local environment.</span></li>
-                            <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i><span>Partnerships: We collaborate with NGOs and government bodies for land access and sustainability.</span></li>
+                         <h3 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Why Choose Eco-Dhara ?</h3>
+                        <ul class="text-left space-y-3 text-gray-600 dark:text-gray-400">
+                             <li class="flex items-start"><i class="fas fa-check-circle text-green-500 dark:text-green-400 mr-3 mt-1"></i><span>Convenience: We handle everything from planting to care.</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-green-500 dark:text-green-400 mr-3 mt-1"></i><span>Transparency: Receive monthly photo updates of YOUR tree.</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-green-500 dark:text-green-400 mr-3 mt-1"></i><span>Impact: We plant native species suitable for the local environment.</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-green-500 dark:text-green-400 mr-3 mt-1"></i><span>Partnerships: We collaborate with NGOs and government bodies for land access and sustainability.</span></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="how-it-works" class="py-16 md:py-24 bg-green-50 fade-in-section">
+         <section id="how-it-works" class="py-16 md:py-24 bg-green-50 dark:bg-gray-800 fade-in-section transition-colors duration-300">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-12">Simple Steps to Make a Difference</h2>
+                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-12">Simple Steps to Make a Difference</h2>
                 <div class="grid md:grid-cols-3 gap-10">
-                    <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
-                        <div class="text-5xl text-green-600 mb-4"><i class="fas fa-donate"></i></div>
-                        <h3 class="text-xl font-semibold text-gray-700 mb-3">1. Choose & Donate</h3>
-                        <p class="text-gray-600">Select how many trees you want to plant and complete your contribution securely online.</p>
+                     <div class="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-md dark:shadow-lg hover:shadow-xl dark:hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                        <div class="text-5xl text-green-600 dark:text-green-400 mb-4"><i class="fas fa-donate"></i></div>
+                        <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-3">1. Choose & Donate</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Select how many trees you want to plant and complete your contribution securely online.</p>
                     </div>
-                    <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
-                        <div class="text-5xl text-green-600 mb-4"><i class="fas fa-seedling"></i></div>
-                        <h3 class="text-xl font-semibold text-gray-700 mb-3">2. We Plant & Nurture</h3>
-                        <p class="text-gray-600">Our team plants a native sapling on your behalf in designated areas and provides initial care.</p>
+                     <div class="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-md dark:shadow-lg hover:shadow-xl dark:hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                        <div class="text-5xl text-green-600 dark:text-green-400 mb-4"><i class="fas fa-seedling"></i></div>
+                        <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-3">2. We Plant & Nurture</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Our team plants a native sapling on your behalf in designated areas and provides initial care.</p>
                     </div>
-                    <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
-                        <div class="text-5xl text-green-600 mb-4"><i class="fas fa-camera-retro"></i></div>
-                        <h3 class="text-xl font-semibold text-gray-700 mb-3">3. Track Your Tree</h3>
-                        <p class="text-gray-600">Receive a unique ID and monthly photo updates directly to your email, watching your tree grow.</p>
+                     <div class="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-md dark:shadow-lg hover:shadow-xl dark:hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                        <div class="text-5xl text-green-600 dark:text-green-400 mb-4"><i class="fas fa-camera-retro"></i></div>
+                        <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-3">3. Track Your Tree</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Receive a unique ID and monthly photo updates directly to your email, watching your tree grow.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="impact" class="py-16 md:py-24 bg-white fade-in-section">
+         <section id="impact" class="py-16 md:py-24 bg-white dark:bg-gray-900 fade-in-section transition-colors duration-300">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-12 text-center">See Your Impact Grow</h2>
+                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-12 text-center">See Your Impact Grow</h2>
                 <div class="grid md:grid-cols-2 gap-12 items-center mb-12">
                     <div>
-                        <h3 class="text-2xl font-semibold text-gray-700 mb-4">Restoring Rajasthan's Landscape</h3>
-                        <p class="text-gray-600 mb-4">We focus on planting native species like Khejri, Rohida, and Neem, vital for the local ecosystem in regions like Moti Khera. Your contribution helps combat desertification, improve water retention, and create habitats.</p>
-                        <div class="flex items-center text-green-700 mb-6">
+                         <h3 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Restoring Rajasthan's Landscape</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">We focus on planting native species like Khejri, Rohida, and Neem, vital for the local ecosystem in regions like Moti Khera. Your contribution helps combat desertification, improve water retention, and create habitats.</p>
+                         <div class="flex items-center text-green-700 dark:text-green-400 mb-6">
                             <span class="text-4xl font-bold mr-2" id="trees-planted-counter">0</span>
                             <span class="text-xl">Trees Planted So Far</span>
                         </div>
-                        <a href="#plant" class="bg-yellow-500 hover:bg-yellow-600 text-gray-800 font-semibold py-2 px-6 rounded-lg shadow transition duration-300">Join the Movement</a>
+                         <a href="#plant" class="bg-yellow-500 hover:bg-yellow-600 text-gray-800 dark:text-gray-900 dark:bg-yellow-400 dark:hover:bg-yellow-500 font-semibold py-2 px-6 rounded-lg shadow transition duration-300">Join the Movement</a>
                     </div>
-                    <img src="https://img.freepik.com/premium-photo/trees-garden_46250-1428.jpg" alt="Close up of a growing sapling" class="rounded-lg shadow-lg w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <img src="https://img.freepik.com/premium-photo/trees-garden_46250-1428.jpg" alt="Close up of a growing sapling" class="rounded-lg shadow-lg dark:shadow-none dark:opacity-90 w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
                 </div>
-                <h3 class="text-2xl font-semibold text-gray-700 mb-6 text-center">From Our Planting Sites</h3>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <img src="https://www.givemetrees.org/site-admin/upload/project/1583667467.jpeg" alt="Planting Site 1" class="rounded-lg shadow-md hover:opacity-80 transition duration-300 w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Not+Found';">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSShVkoqKea3h8TaLqS1BKfcPpYd0p7ymvsM-FyomwWhSZ1ajilynPzosEv5DH0fz1pgUs&usqp=CAU" alt="Planting Site 2" class="rounded-lg shadow-md hover:opacity-80 transition duration-300 w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Not+Found';">
-                    <img src="https://www.ugaoo.com/cdn/shop/articles/shutterstock_441043372.jpg?v=1661881308" alt="Watering Tree" class="rounded-lg shadow-md hover:opacity-80 transition duration-300 w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Not+Found';">
-                    <img src="https://cdn.antaranews.com/cache/1200x800/2023/11/29/20231129_083602.jpg" alt="Happy Donor Tree" class="rounded-lg shadow-md hover:opacity-80 transition duration-300 w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Not+Found';">
+                 <h3 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6 text-center">From Our Planting Sites</h3>
+                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <img src="https://www.givemetrees.org/site-admin/upload/project/1583667467.jpeg" alt="Planting Site 1" class="rounded-lg shadow-md dark:shadow-none hover:opacity-80 dark:opacity-90 dark:hover:opacity-100 transition duration-300 w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Not+Found';">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSShVkoqKea3h8TaLqS1BKfcPpYd0p7ymvsM-FyomwWhSZ1ajilynPzosEv5DH0fz1pgUs&usqp=CAU" alt="Planting Site 2" class="rounded-lg shadow-md dark:shadow-none hover:opacity-80 dark:opacity-90 dark:hover:opacity-100 transition duration-300 w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Not+Found';">
+                    <img src="https://www.ugaoo.com/cdn/shop/articles/shutterstock_441043372.jpg?v=1661881308" alt="Watering Tree" class="rounded-lg shadow-md dark:shadow-none hover:opacity-80 dark:opacity-90 dark:hover:opacity-100 transition duration-300 w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Not+Found';">
+                    <img src="https://cdn.antaranews.com/cache/1200x800/2023/11/29/20231129_083602.jpg" alt="Happy Donor Tree" class="rounded-lg shadow-md dark:shadow-none hover:opacity-80 dark:opacity-90 dark:hover:opacity-100 transition duration-300 w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Not+Found';">
                 </div>
             </div>
         </section>
 
-        <section id="plant" class="py-16 md:py-24 bg-green-100 fade-in-section">
+         <section id="plant" class="py-16 md:py-24 bg-green-100 dark:bg-gray-800 fade-in-section transition-colors duration-300">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-12">Ready to Plant Your Tree?</h2>
+                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-12">Ready to Plant Your Tree?</h2>
                 <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
-                    <div class="bg-white p-8 rounded-lg shadow-lg border border-green-200 flex flex-col justify-between">
+                     <div class="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-lg dark:shadow-xl border border-green-200 dark:border-gray-600 flex flex-col justify-between">
                         <div>
-                            <h3 class="text-2xl font-semibold text-green-700 mb-4">Plant One Tree</h3>
-                            <p class="text-gray-600 mb-6">Perfect for individuals wanting to make a personal contribution. Includes planting, initial care, and monthly photo updates for one year.</p>
-                            <div class="text-4xl font-bold text-gray-800 mb-6">₹250 <span class="text-lg font-normal text-gray-500">/ tree</span></div>
+                            <h3 class="text-2xl font-semibold text-green-700 dark:text-green-400 mb-4">Plant One Tree</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-6">Perfect for individuals wanting to make a personal contribution. Includes planting, initial care, and monthly photo updates for one year.</p>
+                            <div class="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-6">₹250 <span class="text-lg font-normal text-gray-500 dark:text-gray-400">/ tree</span></div>
                         </div>
-                        <button id="plant-now-btn" data-product="Plant One Tree" data-price="250" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-300 mt-4">Plant Now</button>
+                         <button id="plant-now-btn" data-product="Plant One Tree" data-price="250" class="w-full bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-300 mt-4">Plant Now</button>
                     </div>
-                    <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-green-500 flex flex-col justify-between relative">
-                         <span class="absolute -top-3 right-4 bg-yellow-400 text-gray-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Popular</span>
+                     <div class="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-lg dark:shadow-xl border-2 border-green-500 dark:border-green-600 flex flex-col justify-between relative">
+                         <span class="absolute -top-3 right-4 bg-yellow-400 text-gray-800 dark:bg-yellow-500 dark:text-gray-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Popular</span>
                         <div>
-                            <h3 class="text-2xl font-semibold text-green-700 mb-4">Plant a Grove (5 Trees)</h3>
-                            <p class="text-gray-600 mb-6">Make a bigger impact! Ideal for families or small groups. Includes all benefits, applied to each of your five trees.</p>
-                            <div class="text-4xl font-bold text-gray-800 mb-6">₹1100 <span class="text-lg font-normal text-gray-500">/ 5 trees</span></div>
+                            <h3 class="text-2xl font-semibold text-green-700 dark:text-green-400 mb-4">Plant a Grove (5 Trees)</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-6">Make a bigger impact! Ideal for families or small groups. Includes all benefits, applied to each of your five trees.</p>
+                            <div class="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-6">₹1100 <span class="text-lg font-normal text-gray-500 dark:text-gray-400">/ 5 trees</span></div>
                         </div>
-                         <button id="plant-grove-btn" data-product="Plant a Grove (5 Trees)" data-price="1100" class="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-800 font-bold py-3 px-6 rounded-lg shadow transition duration-300 mt-4">Plant a Grove</button>
+                          <button id="plant-grove-btn" data-product="Plant a Grove (5 Trees)" data-price="1100" class="w-full bg-yellow-500 hover:bg-yellow-600 dark:bg-yellow-400 dark:hover:bg-yellow-500 text-gray-800 dark:text-gray-900 font-bold py-3 px-6 rounded-lg shadow transition duration-300 mt-4">Plant a Grove</button>
                     </div>
                 </div>
-                <p class="mt-10 text-gray-600">Need custom packages or corporate options? <a href="#contact" class="text-green-600 hover:underline">Contact us!</a></p>
+                 <p class="mt-10 text-gray-600 dark:text-gray-400">Need custom packages or corporate options? <a href="#contact" class="text-green-600 dark:text-green-400 hover:underline">Contact us!</a></p>
             </div>
         </section>
 
-        <section id="contact" class="py-16 md:py-24 bg-white fade-in-section">
+         <section id="contact" class="py-16 md:py-24 bg-white dark:bg-gray-900 fade-in-section transition-colors duration-300">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-12 text-center">Get In Touch</h2>
-                <div class="max-w-2xl mx-auto bg-gray-50 p-8 rounded-lg shadow-md border border-gray-200">
-                    <form action="#" method="POST"> <div class="mb-4">
-                            <label for="name" class="block text-gray-700 font-medium mb-2">Name</label>
-                            <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none" placeholder="Your Name">
+                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-12 text-center">Get In Touch</h2>
+                 <div class="max-w-2xl mx-auto bg-gray-50 dark:bg-gray-800 p-8 rounded-lg shadow-md dark:shadow-xl border border-gray-200 dark:border-gray-700">
+                    <form action="#" method="POST"> 
+                        <div class="mb-4">
+                             <label for="name" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Name</label>
+                             <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-green-600 dark:focus:border-transparent" placeholder="Your Name">
                         </div>
                         <div class="mb-4">
-                            <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
-                            <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none" placeholder="your.email@example.com">
+                            <label for="email" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Email</label>
+                             <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-green-600 dark:focus:border-transparent" placeholder="your.email@example.com">
                         </div>
                         <div class="mb-4">
-                            <label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
-                            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none" placeholder="How can we help?"></textarea>
+                            <label for="message" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Message</label>
+                             <textarea id="message" name="message" rows="4" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-green-600 dark:focus:border-transparent" placeholder="How can we help?"></textarea>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-300">Send Message</button>
+                             <button type="submit" class="bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-300">Send Message</button>
                         </div>
                     </form>
                 </div>
             </div>
         </section>
-    </div> <section id="checkout-section" class="hidden py-16 md:py-24 bg-gradient-to-br from-green-50 to-teal-50">
+    </div> 
+     <section id="checkout-section" class="hidden py-16 md:py-24 bg-gradient-to-br from-green-50 to-teal-50 dark:from-gray-800 dark:to-gray-900 transition-colors duration-300">
         <div class="container mx-auto px-6 max-w-2xl">
-            <button id="back-to-main-btn" class="mb-6 text-gray-600 hover:text-green-700 transition duration-300">
+             <button id="back-to-main-btn" class="mb-6 text-gray-600 hover:text-green-700 dark:text-gray-400 dark:hover:text-green-400 transition duration-300">
                 <i class="fas fa-arrow-left mr-2"></i> Back to Site
             </button>
 
-            <div class="bg-white p-8 md:p-12 rounded-lg shadow-xl border border-gray-200">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Complete Your Planting</h2>
+             <div class="bg-white dark:bg-gray-800 p-8 md:p-12 rounded-lg shadow-xl dark:shadow-2xl border border-gray-200 dark:border-gray-700">
+                 <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-6 text-center">Complete Your Planting</h2>
 
-                <div class="mb-8 p-4 bg-green-50 rounded-lg border border-green-200">
-                    <h3 class="text-xl font-semibold text-gray-700 mb-3">Your Selection:</h3>
-                    <p class="text-lg text-gray-800" id="checkout-product-name">Product Name</p>
-                    <p class="text-2xl font-bold text-green-700 mt-2" id="checkout-product-price">₹0</p>
+                 <div class="mb-8 p-4 bg-green-50 dark:bg-gray-700 rounded-lg border border-green-200 dark:border-gray-600">
+                    <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-3">Your Selection:</h3>
+                    <p class="text-lg text-gray-800 dark:text-gray-100" id="checkout-product-name">Product Name</p>
+                    <p class="text-2xl font-bold text-green-700 dark:text-green-400 mt-2" id="checkout-product-price">₹0</p>
                 </div>
 
                 <form id="checkout-form">
                     <div class="mb-5">
-                        <label for="checkout-name" class="block text-gray-700 font-medium mb-2">Full Name</label>
+                         <label for="checkout-name" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Full Name</label>
                         <input type="text" id="checkout-name" name="checkout-name" required class="checkout-input" placeholder="Your Full Name">
                     </div>
                     <div class="mb-5">
-                        <label for="checkout-email" class="block text-gray-700 font-medium mb-2">Email Address</label>
+                         <label for="checkout-email" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Email Address</label>
                         <input type="email" id="checkout-email" name="checkout-email" required class="checkout-input" placeholder="your.email@example.com">
-                        <p class="text-xs text-gray-500 mt-1">We'll send your tree updates here.</p>
+                         <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">We'll send your tree updates here.</p>
                     </div>
 
-                    <div class="mt-8 border-t pt-6">
-                         <h3 class="text-xl font-semibold text-gray-700 mb-4">Payment Details</h3>
-                         <div class="bg-gray-100 p-6 rounded-lg text-center text-gray-500">
+                    <div class="mt-8 border-t dark:border-gray-600 pt-6">
+                          <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Payment Details</h3>
+                          <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg text-center text-gray-500 dark:text-gray-400">
                              <p class="mb-3">This is where the payment gateway integration (e.g., Stripe, Razorpay) would appear.</p>
-                             <i class="fas fa-credit-card text-4xl text-gray-400"></i>
+                             <i class="fas fa-credit-card text-4xl text-gray-400 dark:text-gray-500"></i>
                          </div>
                     </div>
 
                     <div class="text-center mt-8">
-                        <button type="submit" class="w-full md:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-10 rounded-lg shadow-lg transition duration-300 text-lg">Proceed to Payment (Simulated)</button>
+                         <button type="submit" class="w-full md:w-auto bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 text-white font-bold py-3 px-10 rounded-lg shadow-lg transition duration-300 text-lg">Proceed to Payment (Simulated)</button>
                     </div>
                 </form>
                  <div id="checkout-status" class="mt-4 text-center text-sm font-medium"></div>
@@ -280,19 +300,19 @@
         </div>
     </section>
 
-    <footer class="bg-gray-800 text-gray-300 py-8">
+    <footer class="bg-gray-800 dark:bg-black text-gray-300 dark:text-gray-400 py-8 transition-colors duration-300">
         <div class="container mx-auto px-6 text-center">
             <div class="mb-4">
-                <a href="#" class="text-xl font-bold text-white">PlantHope</a>
+                <a href="#" class="text-xl font-bold text-white dark:text-gray-200">Eco-Dhara</a>
             </div>
             <div class="flex justify-center space-x-6 mb-4">
-                <a href="#" class="hover:text-green-400 transition duration-300"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="hover:text-green-400 transition duration-300"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="hover:text-green-400 transition duration-300"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="hover:text-green-400 transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="hover:text-green-400 dark:hover:text-green-300 transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="hover:text-green-400 dark:hover:text-green-300 transition duration-300"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="hover:text-green-400 dark:hover:text-green-300 transition duration-300"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="hover:text-green-400 dark:hover:text-green-300 transition duration-300"><i class="fab fa-linkedin-in"></i></a>
             </div>
             <p>&copy; <span id="current-year"></span> Eco-Dhara. All Rights Reserved By HARSHIT BORANA.</p>
-            <p class="text-sm mt-2"><a href="#" class="hover:underline">Privacy Policy</a> | <a href="#" class="hover:underline">NO Terms of Service For Going Green</a></p>
+             <p class="text-sm mt-2"><a href="#" class="hover:underline dark:text-gray-500 dark:hover:text-gray-300">Privacy Policy</a> | <a href="#" class="hover:underline dark:text-gray-500 dark:hover:text-gray-300">NO Terms of Service For Going Green</a></p>
         </div>
     </footer>
 
@@ -318,6 +338,56 @@
             const checkoutStatus = document.getElementById('checkout-status');
             const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link'); // Select all nav links
 
+             // --- NEW: Theme Toggle Elements ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+            const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+            const themeToggleBtnMobile = document.getElementById('theme-toggle-mobile');
+            const themeToggleDarkIconMobile = document.getElementById('theme-toggle-dark-icon-mobile');
+            const themeToggleLightIconMobile = document.getElementById('theme-toggle-light-icon-mobile');
+            const htmlElement = document.documentElement; // Reference to <html>
+
+            // --- NEW: Function to update toggle button icons ---
+            const updateThemeIcons = () => {
+                const isDarkMode = htmlElement.classList.contains('dark');
+                
+                // Desktop Icons
+                if (themeToggleDarkIcon && themeToggleLightIcon) {
+                    themeToggleDarkIcon.classList.toggle('hidden', !isDarkMode);
+                    themeToggleLightIcon.classList.toggle('hidden', isDarkMode);
+                }
+                // Mobile Icons
+                 if (themeToggleDarkIconMobile && themeToggleLightIconMobile) {
+                    themeToggleDarkIconMobile.classList.toggle('hidden', !isDarkMode);
+                    themeToggleLightIconMobile.classList.toggle('hidden', isDarkMode);
+                }
+            };
+
+            // --- NEW: Initialize theme and icons on load ---
+            updateThemeIcons(); // Call initially based on class set in <head>
+
+            // --- NEW: Theme Toggle Event Listener ---
+            const handleThemeToggle = () => {
+                 // toggle theme class
+                htmlElement.classList.toggle('dark');
+                
+                // update localStorage
+                if (htmlElement.classList.contains('dark')) {
+                    localStorage.theme = 'dark';
+                } else {
+                    localStorage.theme = 'light';
+                }
+                
+                // update icons
+                updateThemeIcons();
+            };
+
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', handleThemeToggle);
+            }
+             if (themeToggleBtnMobile) {
+                themeToggleBtnMobile.addEventListener('click', handleThemeToggle);
+            }
 
             // --- Mobile Menu Toggle ---
             if (mobileMenuButton && mobileMenu) {
@@ -459,18 +529,19 @@
                     // If checkout is visible and it's an internal link, show main content first
                     if (!checkoutSection.classList.contains('hidden') && href.startsWith('#')) {
                          showMainContent();
-                         // We need a slight delay to allow the main content to become visible
-                         // before the browser tries to scroll to the anchor.
-                         // Note: Smooth scrolling might interfere, direct jump might be better here.
-                         // setTimeout(() => {
-                         //    const targetElement = document.querySelector(href);
-                         //    if(targetElement) {
-                         //        targetElement.scrollIntoView({ behavior: 'smooth' });
-                         //    }
-                         // }, 50); // Small delay
+                         // Delay slightly to allow main content visibility before scroll
+                         setTimeout(() => {
+                            const targetElement = document.querySelector(href);
+                            if(targetElement) {
+                                // Use scrollIntoView for potentially smoother scrolling if desired
+                                // targetElement.scrollIntoView({ behavior: 'smooth' });
+                                // Or just jump:
+                                window.location.hash = href;
+                            }
+                         }, 50);
                     }
                     // If it's the mobile menu, hide it
-                    if (link.classList.contains('mobile-nav-link')) {
+                    if (link.classList.contains('mobile-nav-link') && mobileMenu) {
                          mobileMenu.classList.add('hidden');
                     }
                 });
@@ -486,33 +557,28 @@
                     const email = document.getElementById('checkout-email').value.trim();
 
                     if (!name || !email) {
+                         // Added dark mode styles for error
                         checkoutStatus.textContent = 'Please fill in your name and email.';
-                        checkoutStatus.className = 'mt-4 text-center text-sm font-medium text-red-600';
+                        checkoutStatus.className = 'mt-4 text-center text-sm font-medium text-red-600 dark:text-red-400';
                         return;
                     }
 
                     // Simulate processing
+                     // Added dark mode styles for processing
                     checkoutStatus.textContent = 'Processing your request...';
-                    checkoutStatus.className = 'mt-4 text-center text-sm font-medium text-blue-600';
+                    checkoutStatus.className = 'mt-4 text-center text-sm font-medium text-blue-600 dark:text-blue-400';
 
                     setTimeout(() => {
                         // Simulate success
-                        checkoutStatus.innerHTML = `
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            Thank you, ${name}! Your planting is confirmed. Check ${email} for updates.
-                        `;
-                         checkoutStatus.className = 'mt-4 text-center text-sm font-medium text-green-600';
-                        checkoutForm.reset();
-
-                        // Optionally redirect or show a success message/page after a delay
-                        // setTimeout(showMainContent, 4000);
-
-                    }, 2000); // Simulate delay
+                         // Added dark mode styles for success
+                        checkoutStatus.textContent = 'Thank you! Your planting request is confirmed. Check your email for details.';
+                         checkoutStatus.className = 'mt-4 text-center text-sm font-medium text-green-600 dark:text-green-400';
+                        checkoutForm.reset(); // Clear the form
+                    }, 2000); // Simulate 2 seconds delay
                 });
-            }
+             }
 
         }); // End DOMContentLoaded
     </script>
-
 </body>
 </html>
