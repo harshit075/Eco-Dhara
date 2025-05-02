@@ -1,0 +1,216 @@
+/* style.css */
+/* Import Tailwind base and components (optional, if you need to override) */
+/* @tailwind base; */
+/* @tailwind components; */
+/* @tailwind utilities; */
+
+/* Custom Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    @apply antialiased; /* Smoother font rendering */
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Header Styling */
+#main-header.scrolled {
+    @apply shadow-lg; /* Add more prominent shadow on scroll */
+}
+
+/* Navigation Links */
+.nav-link {
+    @apply text-gray-600 hover:text-green-600 transition duration-300 relative py-1;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    @apply bg-green-600 transition-all duration-300;
+}
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.mobile-nav-link {
+    @apply block px-6 py-3 text-gray-600 hover:bg-green-50 transition duration-200;
+}
+
+/* Buttons */
+.btn {
+    @apply font-semibold py-2 px-5 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-offset-2 transition duration-300 ease-in-out transform hover:-translate-y-0.5;
+}
+.btn-primary {
+    @apply bg-green-600 hover:bg-green-700 text-white focus:ring-green-500;
+}
+.btn-secondary {
+    @apply bg-yellow-500 hover:bg-yellow-600 text-gray-800 focus:ring-yellow-400;
+}
+.btn-lg {
+    @apply py-3 px-8 text-lg;
+}
+
+/* Hero Section */
+#hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
+    background-size: cover;
+    transition: 1s opacity;
+    object-fit: cover; /* Ensure video covers the area */
+}
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)); /* Gradient overlay */
+    z-index: -50;
+}
+
+/* Section Titles & Subtitles */
+.section-title {
+    @apply text-3xl md:text-4xl font-bold text-gray-800 mb-4;
+}
+.section-subtitle {
+    @apply text-lg text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed;
+}
+
+/* Image Zoom Effect */
+.img-zoom {
+    @apply transition-transform duration-500 ease-in-out;
+}
+.overflow-hidden:hover .img-zoom {
+    transform: scale(1.05);
+}
+
+/* How It Works Section Cards */
+.step-card {
+    @apply bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-transparent hover:border-green-200;
+}
+.step-icon {
+    @apply text-5xl text-green-600 mb-5 inline-block bg-green-100 p-4 rounded-full;
+}
+.step-title {
+    @apply text-xl font-semibold text-gray-700 mb-3;
+}
+.step-description {
+    @apply text-gray-600 leading-relaxed;
+}
+
+/* Impact Section Counter */
+.counter-container {
+    @apply justify-center md:justify-start; /* Center on mobile */
+}
+
+/* Gallery Styles */
+.gallery-track {
+    /* The width will be set by JS based on the number of images */
+}
+.gallery-slide {
+    flex: 0 0 100%; /* Each slide takes full width */
+    @apply w-full relative;
+}
+.gallery-slide img {
+    @apply block w-full h-64 md:h-96 object-cover rounded-lg; /* Fixed height for consistency */
+}
+.gallery-nav {
+    @apply absolute top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 transition duration-300 cursor-pointer z-10;
+}
+.gallery-nav.left-0 { @apply left-4; }
+.gallery-nav.right-0 { @apply right-4; }
+.gallery-dot {
+    @apply w-3 h-3 bg-gray-400 rounded-full cursor-pointer transition-colors duration-300 hover:bg-gray-500;
+}
+.gallery-dot.active {
+    @apply bg-green-600;
+}
+
+/* Pricing Cards */
+.pricing-card {
+    @apply bg-white p-8 rounded-lg shadow-lg border border-gray-200 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl relative;
+}
+.pricing-title {
+    @apply text-2xl font-semibold text-green-700 mb-4;
+}
+.pricing-description {
+    @apply text-gray-600 mb-6 min-h-[6em]; /* Ensure cards have similar height */
+}
+.pricing-price {
+    @apply text-4xl font-bold text-gray-800 mb-8;
+}
+.featured {
+    @apply border-2 border-green-500;
+}
+.featured-badge {
+    @apply absolute -top-3 right-4 bg-yellow-400 text-gray-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider;
+}
+
+/* Contact Form */
+.form-label {
+    @apply block text-gray-700 font-medium mb-2;
+}
+.form-input {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition duration-300;
+}
+.form-input:focus {
+    @apply shadow-md;
+}
+#form-status {
+    @apply text-sm font-medium;
+}
+#form-status.success {
+    @apply text-green-600;
+}
+#form-status.error {
+    @apply text-red-600;
+}
+
+
+/* Footer Icons */
+.footer-icon {
+    @apply text-gray-400 hover:text-green-400 transition duration-300 text-xl;
+}
+
+/* Fade-in Animation */
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(30px); /* Slightly larger translate */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.fade-in-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Keyframe Animations (from previous version, kept for hero text) */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-down { animation: fadeInDown 1s ease-out forwards; }
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up { animation: fadeInUp 1s ease-out 0.5s forwards; opacity: 0; } /* Added delay */
+
+@keyframes bounceSlow {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-8px) scale(1.05); }
+}
+.animate-bounce-slow { animation: bounceSlow 2s infinite ease-in-out 1s; } /* Added delay */
